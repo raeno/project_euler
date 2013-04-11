@@ -3,9 +3,7 @@
  # For example for grid 2x2 there are 6 routes: 0011, 1100, 0110, 0101. 1001, 1010
  # Total count of all different routes is equal to number of combination from 4 by 2 ( C_4_2) = 4!/(2!*2!) 
 
- def factorial(n)
- 	(2..n).inject(1) { |mem, var| mem *= var  }
- end
+
 
  #for 20x20 grid total different routes count would be C_40_20
 

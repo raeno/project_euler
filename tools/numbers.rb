@@ -5,4 +5,8 @@ class Fixnum
     right_border = num_string.length.even? ? left_border : left_border + 1
     num_string[0..left_border-1] == num_string[right_border..num_string.length].reverse
   end
+
+   def factorial
+ 	(2..self).inject(1) { |mem, var| mem *= var  }
+ end
 end
