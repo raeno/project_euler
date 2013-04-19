@@ -24,8 +24,9 @@ class Collatzchain
 end
 
 def longest_collatzChain(max_start_num)
-	chains_lengths = (1..max_start_num).map { |n| Collatzchain.new(n).length }
-	chains_lengths.max
+	chains_lengths = (1..max_start_num).map { |n| [n,Collatzchain.new(n).length] }
+	chains_lengths = Hash[chains_lengths]
+	chains_lengths.max_by { |k,v| v}
 
 end
 
