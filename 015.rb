@@ -6,5 +6,7 @@
 
 
  #for 20x20 grid total different routes count would be C_40_20
+require_relative 'tools/numbers'
 
- p factorial(40)/(factorial(20)*factorial(20))
+twentyFactorial = 20.factorial
+p 40.factorial/(twentyFactorial*twentyFactorial)
