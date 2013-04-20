@@ -31,11 +31,17 @@ class Fixnum
         decade = self - last_digit
         DECADES_IN_WORDS[decade] + '-' + DIGITS_IN_WORDS[last_digit]
       end
+    when 100..999
+      decades = self % 100
+      hundreds = (self - decades)/100
+      DIGITS_IN_WORDS[hundreds] + ' hundred and ' + decades.in_words
     end
   end
 
   
 end
 
-
+p 123.in_words
+p 8.in_words
+p 14.in_words
 p 79.in_words  
