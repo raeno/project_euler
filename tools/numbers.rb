@@ -5,6 +5,7 @@ class Fixnum
                             15 => 'fifteen', 16 => 'sixteen', 17 => 'seventeen', 18 => 'eighteen', 19 => 'nineteen'}
   DECADES_IN_WORDS = { 20 => 'twenty', 30 => 'thirty', 40 => 'fourty', 50 => 'fifty', 60 => 'sixty',
                        70 => 'seventy', 80 => 'eighty', 90 => 'ninety'} 
+  TENS_POWERS_IN_WORDS = { 3 => 'thousand', 6 => 'million', 9 => 'billion'}
 
   def palindrome?
     num_string = self.to_s
@@ -35,13 +36,22 @@ class Fixnum
       decades = self % 100
       hundreds = (self - decades)/100
       DIGITS_IN_WORDS[hundreds] + ' hundred and ' + decades.in_words
+    else
+      power_of_ten = Math.log10(self).floor
+      nearest_power_of_ten_with_name = power_of_ten - power_of_ten%3
+      power_name = TENS_POWERS_IN_WORDS[nearest_power_of_ten_with_name]
+      power_count = self / 10**nearest_power_of_ten_with_name
+
+      rest = self % 10**nearest_power_of_ten_with_name
+
+      power_count.in_words + ' ' + power_name + ' ' + rest.in_words
     end
   end
-
-  
 end
 
+p 12345.in_words
+p 987654321.in_words
 p 123.in_words
-p 8.in_words
-p 14.in_words
-p 79.in_words  
+#p 8.in_words
+#p 14.in_words
+#p 79.in_words  
