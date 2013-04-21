@@ -3,7 +3,7 @@ class Fixnum
                       5 => 'five', 6 => 'six', 7 => 'seven', 8 => 'eight', 9 => 'nine' }
   FIRST_DECADE_IN_WORDS = { 10 => 'ten', 11 => 'eleven', 12 => 'twelve', 13 => 'thirteen', 14 => 'fourteen', 
                             15 => 'fifteen', 16 => 'sixteen', 17 => 'seventeen', 18 => 'eighteen', 19 => 'nineteen'}
-  DECADES_IN_WORDS = { 20 => 'twenty', 30 => 'thirty', 40 => 'fourty', 50 => 'fifty', 60 => 'sixty',
+  DECADES_IN_WORDS = { 20 => 'twenty', 30 => 'thirty', 40 => 'forty', 50 => 'fifty', 60 => 'sixty',
                        70 => 'seventy', 80 => 'eighty', 90 => 'ninety'} 
   TENS_POWERS_IN_WORDS = { 3 => 'thousand', 6 => 'million', 9 => 'billion'}
 
@@ -35,7 +35,11 @@ class Fixnum
     when 100..999
       decades = self % 100
       hundreds = (self - decades)/100
-      DIGITS_IN_WORDS[hundreds] + ' hundred and ' + decades.in_words
+      result = DIGITS_IN_WORDS[hundreds] + ' hundred'
+      result += ' and ' + decades.in_words unless decades == 0
+      return result
+    when 1000
+      'one thousand'
     else
       power_of_ten = Math.log10(self).floor
       nearest_power_of_ten_with_name = power_of_ten - power_of_ten%3
@@ -48,10 +52,3 @@ class Fixnum
     end
   end
 end
-
-p 12345.in_words
-p 987654321.in_words
-p 123.in_words
-#p 8.in_words
-#p 14.in_words
-#p 79.in_words  
