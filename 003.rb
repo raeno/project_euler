@@ -3,6 +3,7 @@
 #  The prime factors of 13195 are 5, 7, 13 and 29.
 #  What is the largest prime factor of the number 600851475143 ?
 
+require "test/unit"
 require_relative 'tools/prime_numbers'
 
 def largest_prime_factor(num)
@@ -14,4 +15,9 @@ def largest_prime_factor(num)
   end
 end
 
-p largest_prime_factor 600851475143
+class TestProblem_3 < Test::Unit::TestCase
+	def test_largest_prime_factor_of_600851475143
+		assert_equal(6857, largest_prime_factor(600851475143))
+	end
+end
+

@@ -7,15 +7,25 @@
 # By considering the terms in the Fibonacci sequence whose values do not exceed four million,
 # find the sum of the even-valued terms.
 
-last = 1
-prev = sum = 0
+require "test/unit"
 
-while last < 4000000
-  temp = last
-  last += prev
-  prev = temp
+def find_sum_of_even_values_fibonacci_terms
+	last = 1
+	prev = sum = 0
 
-  sum += last if last % 2 == 0
+	while last < 4000000
+	  temp = last
+	  last += prev
+	  prev = temp
+
+	  sum += last if last % 2 == 0
+	end	
+	sum
 end
 
-p sum
+class TestProblem_2 < Test::Unit::TestCase
+	def test_sum_of_even_valued_fibonacci_terms
+		sum = find_sum_of_even_values_fibonacci_terms
+		assert_equal 4613732, sum
+	end
+end
