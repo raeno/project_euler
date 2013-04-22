@@ -1,4 +1,6 @@
 require_relative '../tools/prime_numbers'
+require_relative '../tools/big_numbers'
+
 class Fixnum
   DIGITS_IN_WORDS = { 0 => 'zero', 1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four',
                       5 => 'five', 6 => 'six', 7 => 'seven', 8 => 'eight', 9 => 'nine' }
@@ -89,4 +91,10 @@ class Fixnum
       power_count.in_words + ' ' + power_name + ' ' + rest.in_words
     end
   end
+
+  def sum_of_digits
+    digits = self.to_s.chars.map(&:to_i)
+    digits.inject { |sum, var| sum += var  }
+  end
+
 end
