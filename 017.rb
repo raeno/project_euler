@@ -5,8 +5,13 @@
 # NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and forty-two) contains 23
 # letters and 115 (one hundred and fifteen) contains 20 letters.
 
+require 'test/unit'
 require_relative 'tools/numbers'
 
-result = (1..1000).map { |number| number.in_words.delete(' -').length}.inject(0) { |mem, var| mem += var  }
 
-p result
+class TestProblem_17 < Test::Unit::TestCase
+	def test_letters_count_in_a_1_to_1000_range_written_in_words
+		letters_count = (1..1000).map { |number| number.in_words.delete(' -').length}.inject(0) { |mem, var| mem += var  }
+		assert_equal 21124, letters_count
+	end
+end
