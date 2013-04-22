@@ -40,17 +40,17 @@ class Fixnum
 
   def divisors_count
     powers = self.divisors_powers
-    powers.values.inject(1) { |mem, var| mem *= var +1 }
+    powers.values.reduce(1) { |mem, var| mem *= var + 1 }
   end
 
   def proper_divisors_sum
     powers = self.divisors_powers
     sums = []
     powers.keys.each do |key|
-       sums << (0..powers[key]).inject(0) { |mem, var| mem += key**var }
+       sums << (0..powers[key]).reduce(0) { |mem, var| mem += key**var }
     end
 
-    sums.inject(1) { |mem,var| mem *= var} - self
+    sums.reduce(1) { |mem,var| mem *= var} - self
   end
 
   def prime_divisors
