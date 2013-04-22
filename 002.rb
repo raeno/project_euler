@@ -9,21 +9,23 @@
 
 require "test/unit"
 
-def find_sum_of_even_values_fibonacci_terms
-	last = 1
-	prev = sum = 0
 
-	while last < 4000000
-	  temp = last
-	  last += prev
-	  prev = temp
-
-	  sum += last if last % 2 == 0
-	end	
-	sum
-end
 
 class TestProblem_2 < Test::Unit::TestCase
+	def find_sum_of_even_values_fibonacci_terms
+		last = 1
+		prev = sum = 0
+
+		while last < 4000000
+		  temp = last
+		  last += prev
+		  prev = temp
+
+		  sum += last if last % 2 == 0
+		end	
+		sum
+	end
+
 	def test_sum_of_even_valued_fibonacci_terms
 		sum = find_sum_of_even_values_fibonacci_terms
 		assert_equal 4613732, sum
