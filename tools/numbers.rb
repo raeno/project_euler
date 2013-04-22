@@ -32,9 +32,7 @@ class Fixnum
 
   def divisors_count(prime_numbers)
     powers = self.divisors_powers prime_numbers
-    result = powers.values.inject(1) { |mem, var| mem *= var +1 }
-    p result
-    result
+    result = powers.values.inject(1) { |mem, var| mem *= var +1 }    
   end
 
   def prime_divisors(prime_numbers = nil)
