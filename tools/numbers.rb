@@ -120,4 +120,16 @@ class Fixnum
     end
   end
 
+  def perfect?
+    self.proper_divisors_sum == self
+  end
+
+  def deficient?
+    self.proper_divisors_sum < self
+  end
+
+  def abundant?
+    self.proper_divisors_sum > self
+  end
+
 end
