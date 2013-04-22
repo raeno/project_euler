@@ -29,11 +29,11 @@ class Graph
 	end
 end
 
-graph = Graph.from_file('data/problem_18_data.txt')
+#graph = Graph.from_file('data/problem_18_data.txt')
 
-p result = graph.dijkstra('0_0').sort_by { |k,v| k}
+#p result = graph.dijkstra('0_0').sort_by { |k,v| k}
 
-p result.max_by { |k,v| v}
+#p result.max_by { |k,v| v}
 
 
 
