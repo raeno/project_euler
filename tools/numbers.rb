@@ -10,6 +10,12 @@ class Fixnum
                        70 => 'seventy', 80 => 'eighty', 90 => 'ninety'} 
   TENS_POWERS_IN_WORDS = { 3 => 'thousand', 6 => 'million', 9 => 'billion'}
 
+  class << self
+    def primes
+      @primes ||= eratosthenes(10**6)
+    end
+  end
+
   def palindrome?
     num_string = self.to_s
     left_border = num_string.length/2
@@ -17,8 +23,8 @@ class Fixnum
     num_string[0..left_border-1] == num_string[right_border..num_string.length].reverse
   end
 
-  def divisors_powers(prime_numbers = nil)
-    divisors = self.prime_divisors(prime_numbers).reverse
+  def divisors_powers
+    divisors = self.prime_divisors.reverse
     prime_powers = {}
     divisors.each do |divisor|
       value = self
@@ -32,18 +38,26 @@ class Fixnum
     prime_powers
   end
 
-  def divisors_count(prime_numbers)
-    powers = self.divisors_powers prime_numbers
+  def divisors_count
+    powers = self.divisors_powers
     powers.values.inject(1) { |mem, var| mem *= var +1 }
   end
 
-  def prime_divisors(prime_numbers = nil)
-    prime_numbers ||= eratosthenes 10**7
-    divisors = []
+  def proper_divisors_sum
+    powers = self.divisors_powers
+    sums = []
+    powers.keys.each do |key|
+       sums << (0..powers[key]).inject(0) { |mem, var| mem += key**var }
+    end
 
+    sums.inject(1) { |mem,var| mem *= var} - self
+  end
+
+  def prime_divisors
+    divisors = []
     value = self
 
-    prime_numbers.each do |prime|
+    Fixnum.primes.each do |prime|
       break if value < prime
       if value % prime == 0
         divisors << prime
@@ -95,6 +109,15 @@ class Fixnum
   def sum_of_digits
     digits = self.to_s.chars.map(&:to_i)
     digits.inject { |sum, var| sum += var  }
+  end
+
+  def amicable?
+    pds = self.proper_divisors_sum
+    if pds != self
+      pds.proper_divisors_sum == self
+    else
+      false
+    end
   end
 
 end

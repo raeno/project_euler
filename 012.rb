@@ -28,9 +28,8 @@ class TestProblem_12 < Test::Unit::TestCase
 
 	def test_first_triangle_number_that_have_over_five_hundred_divisors
 		triangles = triangle_numbers(10**5)
-		primes = eratosthenes 10**6
 
-		triangle = triangles.find { |value| value > 10**6 and value.divisors_count(primes) > 500 }
+		triangle = triangles.find { |value| value > 10**6 and value.divisors_count > 500 }
 		assert_equal(76576500, triangle)
 	end
 end
