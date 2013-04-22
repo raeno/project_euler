@@ -13,18 +13,28 @@
 
 # What is the value of the first triangle number to have over five hundred divisors?
 
+require 'test/unit'
 require_relative 'tools/numbers'
 
-def triangle_numbers(count)
-  triangles = [1]
-  (2..count).each do |i|
-    triangles << i**2 - triangles[i-2]
-  end
-  triangles
+class TestProblem_12 < Test::Unit::TestCase
+
+	def triangle_numbers(count)
+	  triangles = [1]
+	  (2..count).each do |i|
+	    triangles << i**2 - triangles[i-2]
+	  end
+	  triangles
+	end
+
+	def test_first_triangle_number_that_have_over_five_hundred_divisors
+		triangles = triangle_numbers(10**5)
+		primes = eratosthenes 10**6
+
+		triangle = triangles.find { |value| value > 10**6 and value.divisors_count(primes) > 500 }
+		assert_equal(76576500, triangle)
+	end
 end
 
-triangles = triangle_numbers(10**5)
 
-primes = eratosthenes 10**7
 
-p triangles.find { |value| value > 10**6 and value.divisors_count(primes) > 500 }
+

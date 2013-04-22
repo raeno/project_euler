@@ -32,12 +32,24 @@ class Fixnum
 
   def divisors_count(prime_numbers)
     powers = self.divisors_powers prime_numbers
-    result = powers.values.inject(1) { |mem, var| mem *= var +1 }    
+    powers.values.inject(1) { |mem, var| mem *= var +1 }
   end
 
   def prime_divisors(prime_numbers = nil)
     prime_numbers ||= eratosthenes 10**7
-    prime_numbers.select {|prime| self % prime == 0}
+    divisors = []
+
+    value = self
+
+    prime_numbers.each do |prime|
+      break if value < prime
+      if value % prime == 0
+        divisors << prime
+        value = value / prime
+        redo
+      end
+    end
+    divisors
   end
 
   def factorial
