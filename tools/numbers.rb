@@ -12,8 +12,12 @@ class Fixnum
 
   class << self
     def primes
-      @primes ||= eratosthenes(10**6)
+      @primes ||= eratosthenes(10**6).to_set
     end
+  end
+
+  def prime?
+    Fixnum.primes.include? self
   end
 
   def palindrome?
