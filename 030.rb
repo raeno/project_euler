@@ -10,8 +10,6 @@
 
 require "test/unit"
 
-
-
 class TestProblem_30 < Test::Unit::TestCase
 
 	def map_number_to_sum_of_its_digits_in_fifth_power(limit)
