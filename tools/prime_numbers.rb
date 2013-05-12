@@ -38,7 +38,8 @@ def eratosthenes(limit = 1000000)
 end
 
 def primes_without_even_digits
-    primes = Fixnum.primes
-    even_chars = [0,2,4,6,8].map(&:to_s)
-    primes = primes.select { |p| !(p.to_s.chars & even_chars).any? }
-  end
+  primes = Fixnum.primes
+  even_chars = [0,2,4,6,8].map(&:to_s)
+  primes = primes.select { |p| !(p.to_s.chars.to_a & even_chars).any? }
+end
+

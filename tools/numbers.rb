@@ -18,7 +18,7 @@ class Fixnum
     end
 
     def primes=(primes)
-      @primes = primes
+      @primes = primes.to_set
     end
   end
 
@@ -49,7 +49,16 @@ class Fixnum
   end
 
   def digits_rotations
-    digits = self.to_s.chars
+    rotations = []
+    digits = self.to_s.chars.to_a
+    digits.length.times do 
+      rotations << digits.rotate!.join('').to_i
+    end
+    rotations
+  end
+
+  def digits_permutations
+    digits = self.to_s.chars.to_a
     digits.permutation(digits.length).to_a.map { |mutation| mutation.join('').to_i }
   end
 
