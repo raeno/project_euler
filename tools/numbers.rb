@@ -1,3 +1,5 @@
+require 'set'
+
 require_relative '../tools/prime_numbers'
 require_relative '../tools/big_numbers'
 
@@ -47,6 +49,24 @@ class Fixnum
       prime_powers[divisor] = power
     end
     prime_powers
+  end
+
+  def common_divisors(other)
+    common_divisors = []
+    self_divisors_powers = self.divisors_powers
+    other_divisors_powers = other.divisors_powers
+
+    self_divisors_powers.keys.each do |divisor|
+      if other_divisors_powers.include? divisor
+        common_divisor_power = self_divisors_powers[divisor] <= other_divisors_powers[divisor] ? self_divisors_powers[divisor] : other_divisors_powers[divisor]
+        common_divisor_power.times { |_| common_divisors << divisor }
+      end
+    end
+    common_divisors
+  end
+
+  def greatest_common_divisor(second_number)
+    self.common_divisors(second_number).reduce(1) { |mem,var| mem *= var }  
   end
 
   def divisors_count
@@ -142,5 +162,4 @@ class Fixnum
   def abundant?
     self.proper_divisors_sum > self
   end
-
 end
