@@ -16,6 +16,10 @@ class Fixnum
     def primes
       @primes ||= eratosthenes(10**6).to_set
     end
+
+    def primes=(primes)
+      @primes = primes
+    end
   end
 
   def prime?
@@ -26,6 +30,20 @@ class Fixnum
     rotations = self.digits_rotations
     rotations.each do |rotation|
       return false unless rotation.prime?
+    end
+    true
+  end
+
+  def truncatable_prime?
+    return false unless self.prime?
+
+    self_string = self.to_s
+    length = self_string.length
+
+    length.downto 2 do |index|
+        left = self_string[length - index + 1..length].to_i
+        right = self_string[0..index-2].to_i
+        return false unless left.prime? && right.prime?
     end
     true
   end
