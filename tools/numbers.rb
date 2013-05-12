@@ -22,6 +22,19 @@ class Fixnum
     Fixnum.primes.include? self
   end
 
+  def circular_prime?
+    rotations = self.digits_rotations
+    rotations.each do |rotation|
+      return false unless rotation.prime?
+    end
+    true
+  end
+
+  def digits_rotations
+    digits = self.to_s.chars
+    digits.permutation(digits.length).to_a.map { |mutation| mutation.join('').to_i }
+  end
+
   def palindrome?
     num_string = self.to_s
     return true if num_string.length == 1
