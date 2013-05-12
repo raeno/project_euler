@@ -1,3 +1,5 @@
+require 'set'
+
 require_relative '../tools/prime_numbers'
 require_relative '../tools/big_numbers'
 
@@ -14,17 +16,55 @@ class Fixnum
     def primes
       @primes ||= eratosthenes(10**6).to_set
     end
+
+    def primes=(primes)
+      @primes = primes
+    end
   end
 
   def prime?
     Fixnum.primes.include? self
   end
 
+  def circular_prime?
+    rotations = self.digits_rotations
+    rotations.each do |rotation|
+      return false unless rotation.prime?
+    end
+    true
+  end
+
+  def truncatable_prime?
+    return false unless self.prime?
+
+    self_string = self.to_s
+    length = self_string.length
+
+    length.downto 2 do |index|
+        left = self_string[length - index + 1..length].to_i
+        right = self_string[0..index-2].to_i
+        return false unless left.prime? && right.prime?
+    end
+    true
+  end
+
+  def digits_rotations
+    digits = self.to_s.chars
+    digits.permutation(digits.length).to_a.map { |mutation| mutation.join('').to_i }
+  end
+
   def palindrome?
     num_string = self.to_s
+    return true if num_string.length == 1
+
     left_border = num_string.length/2
     right_border = num_string.length.even? ? left_border : left_border + 1
     num_string[0..left_border-1] == num_string[right_border..num_string.length].reverse
+  end
+
+  def base2_palindrome?
+    binary = self.to_s(2).to_i
+    binary.palindrome?
   end
 
   def divisors_powers
@@ -40,6 +80,24 @@ class Fixnum
       prime_powers[divisor] = power
     end
     prime_powers
+  end
+
+  def common_divisors(other)
+    common_divisors = []
+    self_divisors_powers = self.divisors_powers
+    other_divisors_powers = other.divisors_powers
+
+    self_divisors_powers.keys.each do |divisor|
+      if other_divisors_powers.include? divisor
+        common_divisor_power = self_divisors_powers[divisor] <= other_divisors_powers[divisor] ? self_divisors_powers[divisor] : other_divisors_powers[divisor]
+        common_divisor_power.times { |_| common_divisors << divisor }
+      end
+    end
+    common_divisors
+  end
+
+  def greatest_common_divisor(second_number)
+    self.common_divisors(second_number).reduce(1) { |mem,var| mem *= var }  
   end
 
   def divisors_count
@@ -135,5 +193,4 @@ class Fixnum
   def abundant?
     self.proper_divisors_sum > self
   end
-
 end

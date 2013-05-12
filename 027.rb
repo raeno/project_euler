@@ -45,6 +45,7 @@ class TestProblem_27 < Test::Unit::TestCase
         sequences[[a,b]] = quadratic_sequence(a,b).length
       end
     end
+    sequences
   end
 
 	def test_quadratic_expression_that_produces_max_number_of_primes

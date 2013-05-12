@@ -36,3 +36,9 @@ def eratosthenes(limit = 1000000)
   end
   nums.find_all {|m| m.nonzero?}
 end
+
+def primes_without_even_digits
+    primes = Fixnum.primes
+    even_chars = [0,2,4,6,8].map(&:to_s)
+    primes = primes.select { |p| !(p.to_s.chars & even_chars).any? }
+  end
