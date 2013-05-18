@@ -1,13 +1,9 @@
 require "test/unit"
 
 require 'set'
+require_relative 'tools/numbers'
 
 class Test_Problem38 < Test::Unit::TestCase
-
-	def pandigital?(string)
-		@digits ||= (1..9).to_a
-		string.chars.map(&:to_i).sort == @digits
-	end
 
 	def get_multiply_numbers
 		numbers = Set.new
@@ -18,7 +14,7 @@ class Test_Problem38 < Test::Unit::TestCase
 				product += (num*n).to_s
 				break if product.length >= 9
 			end
-			if product.length == 9 && pandigital?(product)
+			if product.length == 9 && product.to_i.pandigital?
 				numbers << product.to_i
 			end
 		end

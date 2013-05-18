@@ -202,4 +202,11 @@ class Fixnum
   def abundant?
     self.proper_divisors_sum > self
   end
+
+  def pandigital?
+    string_rep = self.to_s
+    return false if string_rep.length > 9
+    digits ||= (1..string_rep.length).to_a
+    string_rep.chars.map(&:to_i).sort == digits
+  end
 end
