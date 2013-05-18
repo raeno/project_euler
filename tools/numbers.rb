@@ -13,6 +13,7 @@ class Fixnum
                        70 => 'seventy', 80 => 'eighty', 90 => 'ninety'} 
   TENS_POWERS_IN_WORDS = { 3 => 'thousand', 6 => 'million', 9 => 'billion'}
 
+
   class << self
     def primes
       @primes ||= eratosthenes(10**6).to_set

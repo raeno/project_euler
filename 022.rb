@@ -7,26 +7,18 @@
 # What is the total of all the name scores in the file?
 
 require 'test/unit'
-
+require_relative 'tools/words_letters'
 
 class TestProblem_22 < Test::Unit::TestCase
 
-  def letters_values
-    @letters ||= Hash[*('A'..'Z').to_a.each_with_index.map { |v,i| [v,i+1] }.flatten]
-  end
-
   def total_score
-    all_words = []
-    File.open('data/problem_22_names.txt') do |file|
-      all_words = file.readline.split(',').sort.map { |str| str.gsub /"/, '' }
-    end
+    all_words = all_words_from_file('data/problem_22_names.txt')
 
-    scores =  all_words.map { |str| str.chars.reduce(0) { |mem, ch| mem += letters_values[ch]} }
+    scores =  all_words.map { |str| word_score str }
     final_scores = scores.each_with_index.map { |v,i| v * (i +1) }
 
     final_scores.reduce(&:+)
   end
-
 
 	def test_sum_of_all_name_scores
     assert_equal 871198282, total_score
