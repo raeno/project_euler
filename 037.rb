@@ -9,6 +9,6 @@ class Test_Problem37 < Test::Unit::TestCase
 	end
 
 	def test_sum_of_eleven_truncatable_primes
-		assert_equal 100, find_truncatable_primes.reduce(0) {|mem,var| mem += var }
+		assert_equal 748317, find_truncatable_primes.reduce(0) {|mem,var| mem += var }
 	end
 end
