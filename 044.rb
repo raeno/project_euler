@@ -1,15 +1,8 @@
 require "test/unit"
-
-require "set"
+require_relative 'tools/polygonal_numbers'
 
 class Test_Problem44 < Test::Unit::TestCase
-
-	def pentagonal_sequence(limit = 10**6)
-		sequence = Set.new
-		limit.times { |n| sequence << n*(3*n-1)/2 }
-		sequence.delete 0
-		sequence
-	end
+	include PolygonalNumbers
 
 	def special_pentagonals
 		special = []
