@@ -22,11 +22,17 @@ class Fixnum
     def primes=(primes)
       @primes = primes.to_set
     end
+
+    def factorials
+      @factorials ||= 100.get_all_factorials
+    end
   end
 
   def prime?
     Fixnum.primes.include? self
   end
+
+  
 
   def circular_prime?
     rotations = self.digits_rotations
@@ -142,7 +148,18 @@ class Fixnum
   end
 
   def factorial
- 	(2..self).inject(1) { |mem, var| mem *= var  }
+    return Fixnum.factorials[self] if Fixnum.factorials.has_key? self
+ 	  (2..self).inject(1) { |mem, var| mem *= var  }
+  end
+
+  def get_all_factorials
+    factorial_keeper = 1
+    factorials = {}
+    (1..self).each do |n|
+      factorial_keeper *= n
+      factorials[n] = factorial_keeper
+    end
+    factorials
   end
 
   def in_words
