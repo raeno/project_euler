@@ -16,7 +16,16 @@ class Fixnum
 
   class << self
     def primes
-      @primes ||= eratosthenes(10**6).to_set
+      
+      @primes ||= begin
+        if File.file?('data/primes')
+          Marshal.load(File.read('data/primes'))  
+        else
+          prime_numbers = eratosthenes(4*10**8).to_set  
+          File.open('data/primes', 'w') { |f| f.write(Marshal.dump(prime_numbers)) }
+          prime_numbers
+        end
+      end
     end
 
     def primes=(primes)
