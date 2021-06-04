@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test/unit'
 
 require_relative 'tools/numbers'
@@ -6,15 +8,14 @@ require_relative 'tools/numbers'
 # Considering natural numbers of the form, ab, where a, b < 100, what is the maximum digital sum?
 
 class Test_Problem56 < Test::Unit::TestCase
-
-	def test_max_sum_of_digits
-		max = 1
-		(2..100).each do |a|
-			(2..100).each do |b|
-				sum = (a**b).sum_of_digits
-				max = sum if sum > max
-			end
-		end
-		assert_equal 972, max
-	end
+  def test_max_sum_of_digits
+    max = 1
+    (2..100).each do |a|
+      (2..100).each do |b|
+        sum = (a**b).sum_of_digits
+        max = sum if sum > max
+      end
+    end
+    assert_equal 972, max
+  end
 end
